@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import br.jeronimo.api.sicredi.domain.Guideline;
 import br.jeronimo.api.sicredi.repositories.GuidelineRepository;
 import br.jeronimo.api.sicredi.services.exception.ObjectNotFoundException;
+import br.jeronimo.api.sicredi.services.exception.ObjectNullException;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -18,6 +19,8 @@ public class GuidelineService implements SicrediService<Guideline, String> {
 	
 	@Override
 	public Guideline create(Guideline obj) {
+		if(obj==null)
+			throw new ObjectNullException("Não é permitido criar uma pauta passando dados nulos");
 		return guidelineRepository.insert(obj);
 	}
 

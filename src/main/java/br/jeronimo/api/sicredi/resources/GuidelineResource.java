@@ -17,7 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.jeronimo.api.sicredi.domain.Guideline;
 import br.jeronimo.api.sicredi.domain.util.GuidelineRequest;
 import br.jeronimo.api.sicredi.domain.util.GuidelineWithVotingResults;
-import br.jeronimo.api.sicredi.services.GuidelineService;
+import br.jeronimo.api.sicredi.services.SicrediService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -29,7 +29,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class GuidelineResource {
 
-	private final GuidelineService guidelineService;
+	private final SicrediService<Guideline, String> guidelineService;
 	
 	@GetMapping
 	@ApiOperation(value="This method returns all existing guideline (subject) -Pautas- in mongoDB")

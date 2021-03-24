@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import br.jeronimo.api.sicredi.domain.Associate;
 import br.jeronimo.api.sicredi.repositories.AssociateRepository;
 import br.jeronimo.api.sicredi.services.exception.ObjectNotFoundException;
+import br.jeronimo.api.sicredi.services.exception.ObjectNullException;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -18,6 +19,8 @@ public class AssociateService implements SicrediService<Associate, String> {
 	
 	@Override
 	public Associate create(Associate obj) {
+		if(obj==null)
+			throw new ObjectNullException("Não é permitido criar um associado passando dados nulo");
 		return associateRepository.insert(obj);
 	}
 
