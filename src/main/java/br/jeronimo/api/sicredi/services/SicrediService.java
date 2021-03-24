@@ -8,9 +8,9 @@ public interface SicrediService<T, T2>{
 	
 	public List<T> findAll();
 	
-	public T findById(T2 value);
+	public T findById(T2 id);
 	
-	public void deleteById(T2 value);
+	public void deleteById(T2 id);
 	
 	public T updateData(T obj);
 }
