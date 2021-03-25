@@ -23,6 +23,10 @@ dependencies {
   	implementation 'org.springframework.cloud:spring-cloud-stream'
   	implementation 'org.springframework.cloud:spring-cloud-stream-binder-kafka-streams' 
   	implementation 'io.confluent:kafka-avro-serializer:5.5.0'
+  	
+  	implementation 'org.springframework.boot:spring-boot-starter-security'
+  	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.2'
+  
 	compile('io.springfox:springfox-swagger2:2.9.2')
     compile('io.springfox:springfox-swagger-ui:2.9.2')
     compileOnly 'org.projectlombok:lombok'
@@ -34,6 +38,7 @@ dependencies {
 	testImplementation 'org.springframework.kafka:spring-kafka-test'	
     testImplementation('junit:junit:4.13')
     testImplementation 'org.springframework.cloud:spring-cloud-stream-test-support'
+    testImplementation 'org.springframework.security:spring-security-test'
     
 
 }
