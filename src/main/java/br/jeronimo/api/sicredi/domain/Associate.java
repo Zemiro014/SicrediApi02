@@ -48,5 +48,5 @@ public class Associate implements Serializable{
 
 	public List<Perfil> getPerfis(){
 		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toList());
-	}	
+	}
 }

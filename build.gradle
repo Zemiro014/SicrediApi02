@@ -28,6 +28,8 @@ dependencies {
   	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.2'
   	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.0.Final'
   	compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.2.Final'
+  	implementation "jakarta.xml.bind:jakarta.xml.bind-api:2.3.2"
+    implementation "org.glassfish.jaxb:jaxb-runtime:2.3.2"
   
 	compile('io.springfox:springfox-swagger2:2.9.2')
     compile('io.springfox:springfox-swagger-ui:2.9.2')
