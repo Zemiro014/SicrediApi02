@@ -2,8 +2,6 @@ package br.jeronimo.api.sicredi.security;
 
 import java.util.Date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +11,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
 public class JWTUtil {
-
-	private static final Logger logger = LoggerFactory.getLogger(JWTUtil.class); 
+	
 	@Value("${jwt.secret}")
 	private String secret;
 	

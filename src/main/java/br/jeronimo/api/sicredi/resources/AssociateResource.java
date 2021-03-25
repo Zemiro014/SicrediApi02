@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +32,9 @@ public class AssociateResource {
 	private final SicrediService<Associate, String> associateService;
 	private final BCryptPasswordEncoder senhaCodificado;
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping
-	@ApiOperation(value="This method returns all existing associate in mongoDB")
+	@ApiOperation(value="This method returns all existing associate in mongoDB. Accessed only by ADMIN")
 	public ResponseEntity<List<Associate>> findAllAssociates(){
 		
 		List<Associate> list = associateService.findAll();		
@@ -63,8 +65,9 @@ public class AssociateResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	@ApiOperation(value="This method allow to delete the associate that corresponds to the specified Id")
+	@ApiOperation(value="This method allow to delete the associate that corresponds to the specified Id. Accessed only by ADMIN")
 	public ResponseEntity<Associate> deleteAssociate(@PathVariable String id){
 		
 		associateService.deleteById(id);

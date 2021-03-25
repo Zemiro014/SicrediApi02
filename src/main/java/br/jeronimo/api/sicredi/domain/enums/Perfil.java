@@ -2,7 +2,7 @@ package br.jeronimo.api.sicredi.domain.enums;
 
 public enum Perfil {
 
-	ASSOCIATE_ADMIN(1, "ROLE_ADMIN"),
+	ADMIN(1, "ROLE_ADMIN"),
 	ASSOCIATE(2, "ROLE_ASSOCIATE");
 	
 	private int cod;

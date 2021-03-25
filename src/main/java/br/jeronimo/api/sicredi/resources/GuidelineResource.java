@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +33,7 @@ public class GuidelineResource {
 	private final SicrediService<Guideline, String> guidelineService;
 	
 	@GetMapping
-	@ApiOperation(value="This method returns all existing guideline (subject) -Pautas- in mongoDB")
+	@ApiOperation(value="This method returns all existing guideline (subject) -Pautas- in mongoDB.")
 	public ResponseEntity<List<Guideline>> findAllGuidelines(){
 		
 		List<Guideline> list = guidelineService.findAll();
@@ -59,9 +60,10 @@ public class GuidelineResource {
 		return ResponseEntity.ok().body(obj.getVotes());
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	@ApiOperation(value="This method allows inserting a new guideline (subject) -Pautas- in system, "
-			+ "inform in your body the values ​​of the fields: title and description")
+			+ "inform in your body the values ​​of the fields: title and description. Accessed only by ADMIN")
 	public ResponseEntity<Void> insertNewGuideline(@RequestBody GuidelineRequest objRequest){
 		Guideline obj = Guideline.builder().title(objRequest.getTitle()).description(objRequest.getDescription()).build();
 		obj = guidelineService.create(obj);
@@ -70,8 +72,9 @@ public class GuidelineResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	@ApiOperation(value="This method allow to delete the guideline (subject) -Pautas- that corresponds to the specified Id")
+	@ApiOperation(value="This method allow to delete the guideline (subject) -Pautas- that corresponds to the specified Id. Accessed only by ADMIN")
 	public ResponseEntity<Void> deleteGuideline(@PathVariable String id){
 		guidelineService.deleteById(id);
 		return ResponseEntity.noContent().build();

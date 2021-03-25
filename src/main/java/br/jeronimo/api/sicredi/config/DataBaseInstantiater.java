@@ -49,7 +49,7 @@ public class DataBaseInstantiater implements CommandLineRunner {
 		eduardo.addPerfil(Perfil.ASSOCIATE);
 		camila.addPerfil(Perfil.ASSOCIATE);
 		paulo.addPerfil(Perfil.ASSOCIATE);
-		paulo.addPerfil(Perfil.ASSOCIATE_ADMIN);
+		paulo.addPerfil(Perfil.ADMIN);
 		
 		associateRepository.saveAll(Arrays.asList(maria, alex, bob, ana, eduardo, camila, paulo));
 		
