@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import br.jeronimo.api.sicredi.domain.Associate;
 import br.jeronimo.api.sicredi.domain.Guideline;
@@ -22,6 +23,7 @@ public class DataBaseInstantiater implements CommandLineRunner {
 	private final AssociateRepository associateRepository;
 	private final GuidelineRepository guidelineRepository;
 	private final VotingSessionRepository votingSessionRepository;
+	private final BCryptPasswordEncoder senhaCodificado;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -31,13 +33,13 @@ public class DataBaseInstantiater implements CommandLineRunner {
 		guidelineRepository.deleteAll();
 		votingSessionRepository.deleteAll();
 		
-		Associate maria = Associate.builder().id(null).name("Maria Brown").email("maria@gmail.com").build();
-		Associate alex = Associate.builder().id(null).name("Alex Green").email("alex@gmail.com").build();
-		Associate bob = Associate.builder().id(null).name("Bob Grey").email("bob@gmail.com").build();
-		Associate ana = Associate.builder().id(null).name("Ana dos Santos").email("ana@gmail.com").build();
-		Associate eduardo = Associate.builder().id(null).name("Eduardo Costa").email("eduardo@gmail.com").build();
-		Associate camila = Associate.builder().id(null).name("Camila Brito").email("camila@gmail.com").build();
-		Associate paulo = Associate.builder().id(null).name("Paulo Andre").email("cocopaulo@gmail.com").build();
+		Associate maria = Associate.builder().id(null).name("Maria Brown").email("maria@gmail.com").cpf("78112325022").senha(senhaCodificado.encode("1234")).build();
+		Associate alex = Associate.builder().id(null).name("Alex Green").email("alex@gmail.com").cpf("22328539009").senha(senhaCodificado.encode("1234")).build();
+		Associate bob = Associate.builder().id(null).name("Bob Grey").email("bob@gmail.com").cpf("08377720019").senha(senhaCodificado.encode("1234")).build();
+		Associate ana = Associate.builder().id(null).name("Ana dos Santos").email("ana@gmail.com").cpf("55283680061").senha(senhaCodificado.encode("1234")).build();
+		Associate eduardo = Associate.builder().id(null).name("Eduardo Costa").email("eduardo@gmail.com").cpf("91404286055").senha(senhaCodificado.encode("1234")).build();
+		Associate camila = Associate.builder().id(null).name("Camila Brito").email("camila@gmail.com").cpf("30388160004").senha(senhaCodificado.encode("1234")).build();
+		Associate paulo = Associate.builder().id(null).name("Paulo Andre").email("cocopaulo@gmail.com").cpf("82974261060").senha(senhaCodificado.encode("1234")).build();
 		
 		associateRepository.saveAll(Arrays.asList(maria, alex, bob, ana, eduardo, camila, paulo));
 		

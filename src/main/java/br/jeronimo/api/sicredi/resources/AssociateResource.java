@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ import lombok.AllArgsConstructor;
 public class AssociateResource {
 
 	private final SicrediService<Associate, String> associateService;
+	private final BCryptPasswordEncoder senhaCodificado;
 	
 	@GetMapping
 	@ApiOperation(value="This method returns all existing associate in mongoDB")
@@ -51,7 +53,9 @@ public class AssociateResource {
 	public ResponseEntity<Associate> createAssociate(@RequestBody AssociateRequest objRequest){
 		Associate obj = Associate.builder()
 				.name(objRequest.getName())
-				.email(objRequest.getEmail()).build();
+				.email(objRequest.getEmail())
+				.cpf(objRequest.getCpf())
+				.senha(senhaCodificado.encode(objRequest.getSenha())).build();
 		
 		obj = associateService.create(obj);
 		
