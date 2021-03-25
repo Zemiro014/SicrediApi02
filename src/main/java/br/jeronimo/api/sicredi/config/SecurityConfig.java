@@ -18,6 +18,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import br.jeronimo.api.sicredi.security.JWTAuthenticationFilter;
+import br.jeronimo.api.sicredi.security.JWTAuthorizationFilter;
 import br.jeronimo.api.sicredi.security.JWTUtil;
 import lombok.AllArgsConstructor;
 
@@ -30,23 +31,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final UserDetailsService userDetailsService; 
 	private final JWTUtil jwtUtil;
 
-	private static final String[] PUBLIC_MATCHERS_GET = { "/guidelines/**", "/associates/**", "/votingSessions/**"};
+	private static final String[] PUBLIC_MATCHERS_GET = { "/guidelines/**", "/votingSessions/**"};
+	private static final String[] PUBLIC_MATCHERS_POST = { "/associates/**"};
 
 	@Override
 	  protected void configure(HttpSecurity http) throws Exception {
 		  http.cors().and().csrf().disable();
 	    http.authorizeRequests()
 	    .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
+	    .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
 	    .anyRequest().authenticated();
 	    http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+	    http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 	    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	  }
 	
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() 
 	{
+		CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
+		configuration.setAllowedMethods(Arrays.asList("POST","GET", "PUT", "DELETE", "OPTIONS"));
 	    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	    source.registerCorsConfiguration("/**",new CorsConfiguration().applyPermitDefaultValues());
+	    source.registerCorsConfiguration("/**",configuration);
 	    return source;
 	}
 	
