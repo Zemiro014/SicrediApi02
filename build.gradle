@@ -25,7 +25,6 @@ dependencies {
   	implementation 'io.confluent:kafka-avro-serializer:5.5.0'
 	compile('io.springfox:springfox-swagger2:2.9.2')
     compile('io.springfox:springfox-swagger-ui:2.9.2')
-    compile 'com.google.guava:guava:12.0'
     compileOnly 'org.projectlombok:lombok'
   	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'

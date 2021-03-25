@@ -19,8 +19,8 @@ public class AssociateService implements SicrediService<Associate, String> {
 	
 	@Override
 	public Associate create(Associate obj) {
-		if(obj==null)
-			throw new ObjectNullException("Não é permitido criar um associado passando dados nulo");
+		if(obj.getName()==null || obj.getEmail()==null)
+			throw new ObjectNullException("Não é permitido criar um associado com name ou email nulos");
 		return associateRepository.insert(obj);
 	}
 

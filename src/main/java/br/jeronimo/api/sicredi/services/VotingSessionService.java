@@ -30,7 +30,7 @@ public class VotingSessionService implements SicrediService<VotingSession, Strin
 	
 	@Override
 	public VotingSession create(VotingSession obj) {
-		if(obj==null)
+		if(obj.getAssociate() == null || obj.getGuideline() == null)
 			throw new ObjectNullException("A criação de sessão de voto foi negada porque o objecto passado é null");
 		return voteSessionRepository.insert(obj);
 	}
@@ -59,8 +59,8 @@ public class VotingSessionService implements SicrediService<VotingSession, Strin
 	}
 	
 	public VotingSession voteGuideline(VoteRequest obj) {
-		if(obj==null)
-			throw new ObjectNullException("Ação de votar uma pauta foi negada porque o objecto passado é null");
+		if(obj.getAssociateId() == null || obj.getGuidelineId() == null)
+			throw new ObjectNullException("Ação de votar uma pauta foi negada. Verifique se o associado ou a pauta foram especificados");
 		
 		Associate associate = associateService.findById(obj.getAssociateId());
 		Guideline guideline = guidelineService.findById(obj.getGuidelineId());

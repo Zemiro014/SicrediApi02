@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.jeronimo.api.sicredi.domain.Associate;
+import br.jeronimo.api.sicredi.domain.util.AssociateRequest;
 import br.jeronimo.api.sicredi.services.SicrediService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,8 +48,12 @@ public class AssociateResource {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	@ApiOperation(value="This method allows inserting a new one associated with the system, inform in your body the values ​​of the fields: name and email")
-	public ResponseEntity<Associate> createAssociate(@RequestBody Associate objRequest){
-		Associate obj = associateService.create(objRequest);
+	public ResponseEntity<Associate> createAssociate(@RequestBody AssociateRequest objRequest){
+		Associate obj = Associate.builder()
+				.name(objRequest.getName())
+				.email(objRequest.getEmail()).build();
+		
+		obj = associateService.create(obj);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
