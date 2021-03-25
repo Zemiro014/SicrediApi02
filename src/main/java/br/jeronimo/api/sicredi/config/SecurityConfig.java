@@ -20,7 +20,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private static final String[] PUBLIC_MATCHERS_GET = { "/guidelines/**", "/votingSessions/**"};
+	private static final String[] PUBLIC_MATCHERS_GET = { "/guidelines/**", "/associates/**", "/votingSessions/**"};
 
 	@Override
 	  protected void configure(HttpSecurity http) throws Exception {
