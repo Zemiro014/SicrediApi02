@@ -8,6 +8,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -31,13 +32,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final UserDetailsService userDetailsService; 
 	private final JWTUtil jwtUtil;
 
-	private static final String[] PUBLIC_MATCHERS_GET = { "/guidelines/**", "/votingSessions/**"};
+	private static final String[] PUBLIC_MATCHERS_GET = { "/guidelines/**","/votingSessions/**"};
 	private static final String[] PUBLIC_MATCHERS_POST = { "/associates/**"};
+	private static final String[] PUBLIC_MATCHERS_GET_SWEGGER = {
+																	"/v2/api-docs",
+																	"/configuration/ui",
+																	"/swagger-resources",
+																	"/configuration/security",
+																	"/swagger-ui.html",
+																	"/webjars/**",
+																	"/swagger-resources/configuration/ui",
+																	"/swagger-ui.html"
+																};
 
 	@Override
 	  protected void configure(HttpSecurity http) throws Exception {
 		  http.cors().and().csrf().disable();
 	    http.authorizeRequests()
+	    .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET_SWEGGER).permitAll()
 	    .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
 	    .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
 	    .anyRequest().authenticated();
@@ -45,6 +57,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	    http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 	    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	  }
+	
+/*
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/v2/api-docs",
+                                   "/configuration/ui",
+                                   "/swagger-resources/**",
+                                   "/configuration/security",
+                                   "/swagger-ui.html",
+                                   "/webjars/**");
+    }
+*/
 	
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() 
