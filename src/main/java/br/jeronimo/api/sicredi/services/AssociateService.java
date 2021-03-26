@@ -6,7 +6,10 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import br.jeronimo.api.sicredi.domain.Associate;
+import br.jeronimo.api.sicredi.domain.enums.Perfil;
 import br.jeronimo.api.sicredi.repositories.AssociateRepository;
+import br.jeronimo.api.sicredi.security.AssociateSpringSecurity;
+import br.jeronimo.api.sicredi.services.exception.AuthorizationException;
 import br.jeronimo.api.sicredi.services.exception.ObjectNotFoundException;
 import br.jeronimo.api.sicredi.services.exception.ObjectNullException;
 import lombok.AllArgsConstructor;
@@ -31,6 +34,13 @@ public class AssociateService implements SicrediService<Associate, String> {
 
 	@Override
 	public Associate findById(String id) {
+		
+		AssociateSpringSecurity assciate = UserService.authenticated();
+		
+		if(assciate == null || !assciate.hasRole(Perfil.ADMIN) && !id.equals(assciate.getId())) {
+			throw new AuthorizationException("Acesso negado !");
+		}
+			
 		Optional<Associate> obj = associateRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("O Associado especificado não existe no nosso sistema"));
 	}
