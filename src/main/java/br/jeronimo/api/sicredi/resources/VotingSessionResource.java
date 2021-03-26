@@ -2,6 +2,8 @@ package br.jeronimo.api.sicredi.resources;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +41,7 @@ public class VotingSessionResource {
 			+ "It is necessary to inform in your body the values ​​of the fields: guidelineId; associateId and vote. "
 			+ " The guidelineId must match a valid guideline. "
 			+ " The associateId must correspond to a registered associate and the vote must be only SIM or NAO")
-	public ResponseEntity<Void> voteGuideline(@RequestBody VoteRequest objRequest)
+	public ResponseEntity<Void> voteGuideline(@Valid @RequestBody VoteRequest objRequest)
 	{
 		votingSessionconsumer.voteGuideline(objRequest);
 		

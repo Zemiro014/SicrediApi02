@@ -3,6 +3,8 @@ package br.jeronimo.api.sicredi.domain.util;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +24,7 @@ public class AssociateRequest {
 	private String email;
 	
 	@NotEmpty(message="O CPF precisa ser Preenchido obrigatóriamente")
+	@CPF(message="Digite um CPF válido")
 	private String cpf;
 	
 	@NotEmpty(message="A senha precisa ser Preenchida obrigatóriamente")

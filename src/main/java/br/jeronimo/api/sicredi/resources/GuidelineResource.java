@@ -3,6 +3,8 @@ package br.jeronimo.api.sicredi.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -64,7 +66,7 @@ public class GuidelineResource {
 	@PostMapping
 	@ApiOperation(value="This method allows inserting a new guideline (subject) -Pautas- in system, "
 			+ "inform in your body the values ​​of the fields: title and description. Accessed only by ADMIN")
-	public ResponseEntity<Void> insertNewGuideline(@RequestBody GuidelineRequest objRequest){
+	public ResponseEntity<Void> insertNewGuideline(@Valid @RequestBody GuidelineRequest objRequest){
 		Guideline obj = Guideline.builder().title(objRequest.getTitle()).description(objRequest.getDescription()).build();
 		obj = guidelineService.create(obj);
 		

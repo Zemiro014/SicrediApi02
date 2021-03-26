@@ -24,6 +24,7 @@ public class AssociateService implements SicrediService<Associate, String> {
 	public Associate create(Associate obj) {
 		if(obj.getName()==null || obj.getEmail()==null)
 			throw new ObjectNullException("Não é permitido criar um associado com name ou email nulos");
+		obj.addPerfil(Perfil.ASSOCIATE);
 		return associateRepository.insert(obj);
 	}
 

@@ -41,6 +41,7 @@ public class DataBaseInstantiater implements CommandLineRunner {
 		Associate eduardo = Associate.builder().id(null).name("Eduardo Costa").email("eduardo@gmail.com").cpf("91404286055").senha(senhaCodificado.encode("1234")).build();
 		Associate camila = Associate.builder().id(null).name("Camila Brito").email("camila@gmail.com").cpf("30388160004").senha(senhaCodificado.encode("1234")).build();
 		Associate paulo = Associate.builder().id(null).name("Paulo Andre").email("paulo@gmail.com").cpf("82974261060").senha(senhaCodificado.encode("1234")).build();
+		Associate jeronimo = Associate.builder().id(null).name("Jeronimo Kulandissa").email("jeronimo@gmail.com").cpf("94148099029").senha(senhaCodificado.encode("1234")).build();
 		
 		maria.addPerfil(Perfil.ASSOCIATE);
 		alex.addPerfil(Perfil.ASSOCIATE);
@@ -50,8 +51,10 @@ public class DataBaseInstantiater implements CommandLineRunner {
 		camila.addPerfil(Perfil.ASSOCIATE);
 		paulo.addPerfil(Perfil.ASSOCIATE);
 		paulo.addPerfil(Perfil.ADMIN);
+		jeronimo.addPerfil(Perfil.ASSOCIATE);
+		jeronimo.addPerfil(Perfil.ADMIN);
 		
-		associateRepository.saveAll(Arrays.asList(maria, alex, bob, ana, eduardo, camila, paulo));
+		associateRepository.saveAll(Arrays.asList(maria, alex, bob, ana, eduardo, camila, paulo, jeronimo));
 		
 		Guideline guideline1 = Guideline.builder().id(null).title("Despedir funcionário").description("Para se reduzir os custos da empresa").build();
 		Guideline guideline2 = Guideline.builder().id(null).title("Sala de TI").description("Para se aumentar a equipe de TI").build();
