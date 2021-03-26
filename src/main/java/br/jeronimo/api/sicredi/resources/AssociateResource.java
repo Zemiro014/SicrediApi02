@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.jeronimo.api.sicredi.domain.Associate;
-import br.jeronimo.api.sicredi.domain.enums.Perfil;
 import br.jeronimo.api.sicredi.domain.util.AssociateRequest;
 import br.jeronimo.api.sicredi.services.SicrediService;
 import io.swagger.annotations.Api;
@@ -54,7 +53,7 @@ public class AssociateResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	@ApiOperation(value="This method allows inserting a new one associated with the system, inform in your body the values ​​of the fields: name and email")
+	@ApiOperation(value="This method allows inserting a new one associated with the system, inform in your body the values ​​of the fields: name, email, cpf and senha. Accessed by public")
 	public ResponseEntity<Associate> createAssociate(@Valid @RequestBody AssociateRequest objRequest){
 		Associate obj = Associate.builder()
 				.name(objRequest.getName())
