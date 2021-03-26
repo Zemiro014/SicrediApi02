@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.Column;
-
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -31,7 +30,7 @@ public class Associate implements Serializable{
 	private String id;
 	private String name;
 	
-	@Column(unique = true)
+	@Indexed(unique = true)
 	private String email;
 	private String cpf;
 	
